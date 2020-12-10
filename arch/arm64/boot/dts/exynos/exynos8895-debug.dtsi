@@ -58,4 +58,15 @@
 			};
 		};
 	};
+
+	itmon {
+		compatible = "samsung,exynos-itmon";
+		interrupts = <0 72 0>,  /* DATA_BUS_1  */
+			     <0 311 0>, /* DATA_CORE   */
+			     <0 92 0>,  /* DATA_BUS_C  */
+			     <0 315 0>, /* PERI_CORE_0 */
+			     <0 316 0>, /* PERI_CORE_1 */
+			     <0 93 0>,  /* PERI_BUS_C  */
+			     <0 77 0>;  /* PERI_BUS_1  */
+	};
 };
