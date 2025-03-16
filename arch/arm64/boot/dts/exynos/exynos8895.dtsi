@@ -3360,7 +3360,7 @@
 	};
 
 	rtc@16490000 {
-		compatible = "samsung,exynos8-rtc";
+		compatible = "samsung,s3c6410-rtc";
 		reg = <0x0 0x16490000 0x100>;
 		interrupts = <0 79 0>, <0 78 0>;
 	};
