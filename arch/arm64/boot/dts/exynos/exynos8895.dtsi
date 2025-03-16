@@ -19,9 +19,9 @@
 #include <dt-bindings/soc/samsung/exynos8895.h>
 #include <dt-bindings/sysmmu/sysmmu.h>
 #include <dt-bindings/thermal/thermal.h>
-#include "exynos9110-audio.dtsi"
+#include "exynos8895-audio.dtsi"
 #include "exynos8895-pinctrl.dtsi"
-#include "exynos9110-usi.dtsi"
+#include "exynos8895-usi.dtsi"
 #include "exynos8895-pm-domains.dtsi"
 #include "exynos8895-debug.dtsi"
 
