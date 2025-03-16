@@ -1,0 +1,278 @@
+/*
+ * SAMSUNG EXYNOS8895 SoC device tree source
+ *
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd.
+ *		http://www.samsung.com
+ *
+ * SAMSUNG EXYNOS8895 SoC device nodes are listed in this file.
+ * EXYNOS8895 based board files can include this file and provide
+ * values for board specfic bindings.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+
+/ {
+	abox_gic: abox_gic@0x13EF0000 {
+		compatible = "samsung,abox_gic";
+		reg = <0x0 0x13EF1000 0x1000>, <0x0 0x13EF2000 0x1004>;
+		reg-names = "gicd", "gicc";
+		interrupts = <0 442 0>;
+	};
+
+	abox: abox@0x13E50000 {
+		compatible = "samsung,abox";
+		reg = <0x0 0x13E50000 0x10000>, <0x0 0x13E20000 0x10000>, <0x0 0x13F00000 0x31000>;
+		reg-names = "sfr", "sysreg", "sram";
+		#address-cells = <2>;
+		#size-cells = <1>;
+		ranges;
+		pinctrl-names = "default", "idle";
+		pinctrl-0 = <&aud_codec_mclk &aud_codec_bus &aud_spk_bus
+			&aud_fm_bus &aud_bt_bus &aud_cdma_bus>;
+		pinctrl-1 = <&aud_codec_mclk_idle &aud_codec_bus_idle &aud_spk_bus_idle
+			&aud_fm_bus_idle &aud_bt_bus_idle &aud_cdma_bus_idle>;
+		samsung,power-domain = <&pd_abox>;
+		ipc_tx_offset = <0x30000>;
+		ipc_rx_offset = <0x30300>;
+		ipc_tx_ack_offset = <0x302FC>;
+		ipc_rx_ack_offset = <0x305FC>;
+		mailbox_offset = <0x30600>;
+		abox_gic = <&abox_gic>;
+		vts = <&vts>;
+		clocks = <&clock PLL_OUT_AUD>, <&clock DFS_ABOX>, <&clock DOUT_CLK_ABOX_AUDIF>,
+			<&clock DOUT_CLK_ABOX_UAIF0>, <&clock DOUT_CLK_ABOX_UAIF1>,
+			<&clock DOUT_CLK_ABOX_UAIF2>, <&clock DOUT_CLK_ABOX_UAIF3>,
+			<&clock DOUT_CLK_ABOX_UAIF4>, <&clock DOUT_CLK_ABOX_DSIF>,
+			<&clock DOUT_CLK_ABOX_DMIC>, <&clock GATE_UAIF0>,
+			<&clock GATE_UAIF1>, <&clock GATE_UAIF2>,
+			<&clock GATE_UAIF3>, <&clock GATE_UAIF4>,
+			<&clock GATE_DSIF>;
+		clock-names = "pll", "ca7", "audif",
+			"bclk0", "bclk1",
+			"bclk2", "bclk3",
+			"bclk4", "bclk5",
+			"dmic", "bclk0_gate",
+			"bclk1_gate", "bclk2_gate",
+			"bclk3_gate", "bclk4_gate",
+			"bclk5_gate";
+		iommus = <&sysmmu_aud0>;
+		pm_qos_int = <533000 400000 0 0 0>;
+
+		abox_rdma_0: abox_rdma@0x13E51000 {
+			compatible = "samsung,abox-rdma";
+			reg = <0x0 0x13E51000 0x100>;
+			abox = <&abox>;
+			id = <0>;
+			type = "normal";
+		};
+
+		abox_rdma_1: abox_rdma@0x13E51100 {
+			compatible = "samsung,abox-rdma";
+			reg = <0x0 0x13E51100 0x100>;
+			abox = <&abox>;
+			id = <1>;
+			type = "normal";
+		};
+
+		abox_rdma_2: abox_rdma@0x13E51200 {
+			compatible = "samsung,abox-rdma";
+			reg = <0x0 0x13E51200 0x100>;
+			abox = <&abox>;
+			id = <2>;
+			type = "normal";
+		};
+
+		abox_rdma_3: abox_rdma@0x13E51300 {
+			compatible = "samsung,abox-rdma";
+			reg = <0x0 0x13E51300 0x100>;
+			abox = <&abox>;
+			id = <3>;
+			type = "sync";
+		};
+
+		abox_rdma_4: abox_rdma@0x13E51400 {
+			compatible = "samsung,abox-rdma";
+			reg = <0x0 0x13E51400 0x100>;
+			abox = <&abox>;
+			id = <4>;
+			type = "call";
+		};
+
+		abox_rdma_5: abox_rdma@0x13E51500 {
+			compatible = "samsung,abox-rdma";
+			reg = <0x0 0x13E51500 0x100>;
+			abox = <&abox>;
+			id = <5>;
+			type = "compress";
+		};
+
+		abox_rdma_6: abox_rdma@0x13E51600 {
+			compatible = "samsung,abox-rdma";
+			reg = <0x0 0x13E51600 0x100>;
+			abox = <&abox>;
+			id = <6>;
+			type = "realtime";
+		};
+
+		abox_rdma_7: abox_rdma@0x13E51700 {
+			compatible = "samsung,abox-rdma";
+			reg = <0x0 0x13E51700 0x100>;
+			abox = <&abox>;
+			id = <7>;
+			type = "realtime";
+		};
+
+		abox_wdma_0: abox_wdma@0x13E52000 {
+			compatible = "samsung,abox-wdma";
+			reg = <0x0 0x13E52000 0x100>;
+			abox = <&abox>;
+			id = <0>;
+			type = "normal";
+		};
+
+		abox_wdma_1: abox_wdma@0x13E52100 {
+			compatible = "samsung,abox-wdma";
+			reg = <0x0 0x13E52100 0x100>;
+			abox = <&abox>;
+			id = <1>;
+			type = "normal";
+		};
+
+		abox_wdma_2: abox_wdma@0x13E52200 {
+			compatible = "samsung,abox-wdma";
+			reg = <0x0 0x13E52200 0x100>;
+			abox = <&abox>;
+			id = <2>;
+			type = "call";
+		};
+
+		abox_wdma_3: abox_wdma@0x13E52300 {
+			compatible = "samsung,abox-wdma";
+			reg = <0x0 0x13E52300 0x100>;
+			abox = <&abox>;
+			id = <3>;
+			type = "realtime";
+		};
+
+		abox_wdma_4: abox_wdma@0x13E52400 {
+			compatible = "samsung,abox-wdma";
+			reg = <0x0 0x13E52400 0x100>;
+			abox = <&abox>;
+			id = <4>;
+			type = "vi-sensing";
+		};
+
+		abox_effect: abox_effect@0x13F2E000 {
+			compatible = "samsung,abox-effect";
+			reg = <0x0 0x13F2E000 0x1000>;
+			reg-names = "reg";
+			abox = <&abox>;
+		};
+
+		abox_debug: abox_debug@0 {
+			compatible = "samsung,abox-debug";
+			memory-region = <&abox_rmem>;
+		};
+
+		abox_vss: abox_vss@0 {
+			compatible = "samsung,abox-vss";
+		};
+
+		ext_bin_0: ext_bin@0 {
+			status = "okay";
+			samsung,name = "dsm.bin";
+			samsung,area = <1>; /* 0:SRAM, 1:DRAM, 2:VSS */
+			samsung,offset = <0x502000>;
+		};
+		ext_bin_1: ext_bin@1 {
+			status = "okay";
+			samsung,name = "AP_AUDIO_SLSI.bin";
+			samsung,area = <1>;
+			samsung,offset = <0x7F0000>;
+		};
+		ext_bin_2: ext_bin@2 {
+			status = "okay";
+			samsung,name = "APBargeIn_AUDIO_SLSI.bin";
+			samsung,area = <1>;
+			samsung,offset = <0x7EC000>;
+		};
+		ext_bin_3: ext_bin@3 {
+			status = "okay";
+			samsung,name = "SoundBoosterParam.bin";
+			samsung,area = <1>;
+			samsung,offset = <0x4FC000>;
+		};
+		ext_bin_4: ext_bin@4 {
+			status = "okay";
+			samsung,name = "APBiBF_AUDIO_SLSI.bin";
+			samsung,area = <1>;
+			samsung,offset = <0x7EF000>;
+		};
+		ext_bin_5: ext_bin@5 {
+			status = "okay";
+			samsung,name = "dsm_tune.bin";
+			samsung,area = <1>;
+			samsung,offset = <0x601000>;
+		};
+		ext_bin_6: ext_bin@6 {
+			status = "disabled";
+			samsung,name = "dummy.bin";
+			samsung,area = <1>;
+			samsung,offset = <0x800000>;
+		};
+		ext_bin_7: ext_bin@7 {
+			status = "disabled";
+			samsung,name = "dummy.bin";
+			samsung,area = <1>;
+			samsung,offset = <0x800000>;
+		};
+	};
+
+	mailbox_vts: mailbox@0x14040000 {
+		compatible = "samsung,mailbox-asoc";
+		reg = <0x0 0x14040000 0x10000>;
+		reg-names = "sfr";
+		interrupts = <0 23 0>;
+		interrupt-controller;
+		#interrupt-cells = <1>;
+	};
+
+	vts: vts@0x14020000 {
+		compatible = "samsung,vts";
+		reg = <0x0 0x14020000 0x10000>, <0x0 0x14100000 0x59800>,
+			 <0x0 0x14070000 0x8>, <0x0 0x141F0000 0x50>;
+		reg-names = "sfr", "sram", "dmic", "gpr";
+		#address-cells = <2>;
+		#size-cells = <1>;
+		ranges;
+		pinctrl-names = "dmic_default", "amic_default", "idle";
+		pinctrl-0 = <&dmic_bus_clk &dmic_pdm>;
+		pinctrl-1 = <&amic_bus_clk &amic_pdm>;
+		pinctrl-2 = <&mic_bus_clk_idle &dmic_pdm_idle &amic_pdm_idle>;
+		samsung,power-domain = <&pd_vts>;
+		clocks = <&clock GATE_OSC_VTS>, <&clock DOUT_CLK_VTS_DMIC>,
+			<&clock DOUT_CLK_VTS_DMICIF>, <&clock DOUT_CLK_VTS_DMIC_DIV2>;
+		clock-names = "rco", "dmic", "dmic_if", "dmic_sync";
+		mailbox = <&mailbox_vts>;
+		interrupt-parent = <&mailbox_vts>;
+		interrupts = <0>, <1>, <2>, <3>, <4>, <5>;
+		interrupt-names = "error", "boot_completed", "ipc_received", "voice_triggered", "trigger_period_elapsed", "record_period_elapsed";
+		vts_dma0: vts_dma@0x0 {
+			compatible = "samsung,vts-dma";
+			reg = <0x0 0x0 0x0>;
+			vts = <&vts>;
+			id = <0>;
+			type = "vts-trigger";
+		};
+
+		vts_dma1: vts_dma@0x1 {
+			compatible = "samsung,vts-dma";
+			reg = <0x0 0x1 0x0>;
+			vts = <&vts>;
+			id = <1>;
+			type = "vts-record";
+		};
+	};
+};
